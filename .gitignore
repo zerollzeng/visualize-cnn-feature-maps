@@ -1,0 +1,7 @@
+build/
+models/
+.vscode/
+bin/
+lib/
+*.jpg
+!/test.jpg
