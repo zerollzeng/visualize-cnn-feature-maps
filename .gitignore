@@ -6,6 +6,7 @@
 /.vscode/
 /bin/
 /lib/
+*.trt
 *.jpg
 !/test.jpg
 !/6.png

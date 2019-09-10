@@ -1,7 +1,7 @@
 '''
 @Date: 2019-08-29 10:28:33
 @LastEditors: zerollzeng
-@LastEditTime: 2019-09-10 10:20:43
+@LastEditTime: 2019-09-10 12:01:10
 '''
 import sys
 import os
@@ -53,10 +53,10 @@ if __name__ == '__main__':
     command_parser.add_argument('--prototxt',help='caffe prototxt', default='./models/openpose/pose_deploy.prototxt')
     command_parser.add_argument('--caffemodel',help='caffe weights file', default='./models/openpose/pose_iter_584000.caffemodel')
     command_parser.add_argument('--engine_file',help='save engine file path',default='./models/openpose/openpose.trt')
-    command_parser.add_argument('--extra_blob',type=list,help='other blob you want to do visualization')
+    command_parser.add_argument('--extra_blob',nargs='*',default=[],help='other blob you want to do visualization')
     command_parser.add_argument('--mark_type',nargs='*',default=['convolution'],help='mark output type')
-    command_parser.add_argument('--normalize_factor',default=255,help='network_input = input/normalize_factor + normalize_bias')
-    command_parser.add_argument('--normalize_bias',default=-0.5,help='network_input = input/normalize_factor + normalize_bias')
+    command_parser.add_argument('--normalize_factor',type=float, default=255,help='network_input = input/normalize_factor + normalize_bias')
+    command_parser.add_argument('--normalize_bias',type=float,default=-0.5,help='network_input = input/normalize_factor + normalize_bias')
     command_parser.add_argument('--activation_save_path',default='./activation',help='activation save dir')
 
     args = command_parser.parse_args()
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     # np_img = np.array(img)
     if np_img.ndim == 3:
         np_img = np.transpose(np_img,(2,0,1))
-    # np_img = np_img/args.normalize_factor + args.normalize_bias;
+    np_img = np_img/args.normalize_factor + args.normalize_bias;
 
     trt = pytrt.Trt()
     pluginParams = pytrt.TrtPluginParams()
