@@ -2,7 +2,7 @@
  * @Author: zerollzeng
  * @Date: 2019-09-06 20:10:21
  * @LastEditors: zerollzeng
- * @LastEditTime: 2019-09-10 10:58:32
+ * @LastEditTime: 2019-09-10 11:38:49
  -->
 # visualize_cnn_feature_map
 visualize cnn feature maps with tiny-tensorrt
@@ -36,13 +36,21 @@ and you can see each activation visualization in those sub-folders.
 ![image](https://user-images.githubusercontent.com/38289304/64580209-0900c780-d3b8-11e9-9189-cc7d10397cca.png)
 
 ![image](https://user-images.githubusercontent.com/38289304/64580257-351c4880-d3b8-11e9-9866-d60bbf7346d0.png)
+
 ![image](https://user-images.githubusercontent.com/38289304/64580274-49f8dc00-d3b8-11e9-8044-117059be4789.png)
+
 ![image](https://user-images.githubusercontent.com/38289304/64580329-8593a600-d3b8-11e9-90fe-0d0f4962fb4b.png)
+
 ![image](https://user-images.githubusercontent.com/38289304/64580360-9a703980-d3b8-11e9-84e7-616d82caacec.png)
+
 ![image](https://user-images.githubusercontent.com/38289304/64580384-bb388f00-d3b8-11e9-80d4-febc01ea5fa1.png)
+
 ![image](https://user-images.githubusercontent.com/38289304/64580441-e7eca680-d3b8-11e9-82b2-65eabd368704.png)
+
 ![image](https://user-images.githubusercontent.com/38289304/64580559-5893c300-d3b9-11e9-948e-1583f06ae082.png)
+
 ![image](https://user-images.githubusercontent.com/38289304/64580605-7a8d4580-d3b9-11e9-9577-73a4b4083cf4.png)
+
 ![image](https://user-images.githubusercontent.com/38289304/64580670-baecc380-d3b9-11e9-82e9-e7715a40beaa.png)
 
 
