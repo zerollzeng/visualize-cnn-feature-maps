@@ -1,7 +1,7 @@
 '''
 @Date: 2019-08-29 10:28:33
 @LastEditors: zerollzeng
-@LastEditTime: 2019-09-06 20:12:14
+@LastEditTime: 2019-09-10 10:20:43
 '''
 import sys
 import os
@@ -54,7 +54,7 @@ if __name__ == '__main__':
     command_parser.add_argument('--caffemodel',help='caffe weights file', default='./models/openpose/pose_iter_584000.caffemodel')
     command_parser.add_argument('--engine_file',help='save engine file path',default='./models/openpose/openpose.trt')
     command_parser.add_argument('--extra_blob',type=list,help='other blob you want to do visualization')
-    command_parser.add_argument('--mark_type',type=list,default=['convolution'],help='mark output type')
+    command_parser.add_argument('--mark_type',nargs='*',default=['convolution'],help='mark output type')
     command_parser.add_argument('--normalize_factor',default=255,help='network_input = input/normalize_factor + normalize_bias')
     command_parser.add_argument('--normalize_bias',default=-0.5,help='network_input = input/normalize_factor + normalize_bias')
     command_parser.add_argument('--activation_save_path',default='./activation',help='activation save dir')
@@ -62,19 +62,22 @@ if __name__ == '__main__':
     args = command_parser.parse_args()
 
     img = Image.open(args.input)
-    np_hwc = np.array(img,dtype=np.float32)
-    np_chw = np.transpose(np_hwc,(2,0,1))
-    np_chw = np_chw/args.normalize_factor - args.normalize_bias;
+    np_img = np.array(img,dtype=np.float32)
+    # np_img = np.array(img)
+    if np_img.ndim == 3:
+        np_img = np.transpose(np_img,(2,0,1))
+    # np_img = np_img/args.normalize_factor + args.normalize_bias;
 
     trt = pytrt.Trt()
     pluginParams = pytrt.TrtPluginParams()
+    print(args.mark_type)
     outputBlobName = parse(args.prototxt,args.mark_type)
     calibratorData = [[]]
     maxBatchSize = 1
     mode = 0
     # trt.CreateEngine("../models/mobilenetv2-1.0/mobilenetv2-1.0.onnx","../models/mobilenetv2-1.0/mobilenetv2-1.0.trt",1)
     trt.CreateEngine(args.prototxt,args.caffemodel,args.engine_file,outputBlobName,calibratorData,maxBatchSize,mode)
-    trt.DoInference(np_chw)
+    trt.DoInference(np_img)
 
     activation_save_path = args.activation_save_path
     if os.path.exists(activation_save_path):
@@ -86,6 +89,10 @@ if __name__ == '__main__':
         output = trt.GetOutput(blob)
         if output.size == 0:
             continue
+        if output.shape[1] == 1 and output.shape[2] == 1:
+            output = np.transpose(output, (2,0,1))
+        if blob == "prob":
+            print(output)
         num_channel = output.shape[0]
         os.mkdir(os.path.join(activation_save_path,blob))
         for i in range(num_channel):

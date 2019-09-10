@@ -2,13 +2,15 @@
  * @Author: zerollzeng
  * @Date: 2019-09-06 20:10:21
  * @LastEditors: zerollzeng
- * @LastEditTime: 2019-09-06 20:10:21
+ * @LastEditTime: 2019-09-10 10:58:32
  -->
 # visualize_cnn_feature_map
 visualize cnn feature maps with tiny-tensorrt
 
-# Quick Start with python and openpose
-I am gonna show you how to use tiny-tensorrt to visualize a model layer activation, hope it will give you an intuitive understanding of tiny-tensorrt and convolutional neural network.
+# quick start with mnist sample
+Let's start with the classic MNIST example, I use the famous LeNet-5, you can visualize it by [caffe network visualization tool](https://ethereon.github.io/netscope/#/editor), and the model structure look like this.
+
+![image](https://user-images.githubusercontent.com/38289304/64579840-dbffe500-d3b6-11e9-8882-4a9a58ca03a9.png)
 
 you need to compile the project at the beginning.
 ```bash
@@ -18,8 +20,36 @@ git clone --recursive https://github.com/zerollzeng/tensorrt-zoo
 mkdir build
 cd build && cmake .. && make && cd ..
 ```
+ 
+and after install some site-packages and run vis.py, you're done!
 
-then you need to prepare caffe model for openpose and install some python packages
+```bash
+pip install -r requirements.txt 
+python vis.py -i 6.png --prototxt models/mnist/deploy.prototxt --caffemodel models/mnist/mnist.caffemodel --engine_file models/mnist/mnist.trt --mark_type 'convolution' 'pooling' 'innerproduct' 'softmax' --normalize_factor 1 --normalize_bias 0
+```
+in ./activation you will see a bunch of sub-folders
+
+![image](https://user-images.githubusercontent.com/38289304/64580065-97287e00-d3b7-11e9-90ed-e22d96891b47.png)
+
+and you can see each activation visualization in those sub-folders.
+
+![image](https://user-images.githubusercontent.com/38289304/64580209-0900c780-d3b8-11e9-9189-cc7d10397cca.png)
+
+![image](https://user-images.githubusercontent.com/38289304/64580257-351c4880-d3b8-11e9-9866-d60bbf7346d0.png)
+![image](https://user-images.githubusercontent.com/38289304/64580274-49f8dc00-d3b8-11e9-8044-117059be4789.png)
+![image](https://user-images.githubusercontent.com/38289304/64580329-8593a600-d3b8-11e9-90fe-0d0f4962fb4b.png)
+![image](https://user-images.githubusercontent.com/38289304/64580360-9a703980-d3b8-11e9-84e7-616d82caacec.png)
+![image](https://user-images.githubusercontent.com/38289304/64580384-bb388f00-d3b8-11e9-80d4-febc01ea5fa1.png)
+![image](https://user-images.githubusercontent.com/38289304/64580441-e7eca680-d3b8-11e9-82b2-65eabd368704.png)
+![image](https://user-images.githubusercontent.com/38289304/64580559-5893c300-d3b9-11e9-948e-1583f06ae082.png)
+![image](https://user-images.githubusercontent.com/38289304/64580605-7a8d4580-d3b9-11e9-9577-73a4b4083cf4.png)
+![image](https://user-images.githubusercontent.com/38289304/64580670-baecc380-d3b9-11e9-82e9-e7715a40beaa.png)
+
+
+# openpose visualization
+I am gonna show you how to use tiny-tensorrt to visualize a model layer activation, hope it will give you an intuitive understanding of tiny-tensorrt and convolutional neural network.
+
+you need to prepare caffe model for openpose and install some python packages
 ```bash
 # download model, you can also download it via browser
 wget -P ./models/openpose http://posefs1.perception.cs.cmu.edu/OpenPose/models/pose/body_25/pose_iter_584000.caffemodel
