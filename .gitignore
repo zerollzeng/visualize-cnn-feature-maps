@@ -1,10 +1,10 @@
-build/
-models/
+/build/
+/models/
 !/models/mnist/deploy.prototxt
 !/models/mnist/mnist.caffemodel
-.vscode/
-bin/
-lib/
+/.vscode/
+/bin/
+/lib/
 *.jpg
 !/test.jpg
 !/6.png
