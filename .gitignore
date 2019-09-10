@@ -1,7 +1,8 @@
 /build/
-/models/
-!/models/mnist/deploy.prototxt
-!/models/mnist/mnist.caffemodel
+/models
+!/models
+/models/*
+!/models/mnist/
 /.vscode/
 /bin/
 /lib/
